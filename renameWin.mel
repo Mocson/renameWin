@@ -1,0 +1,29 @@
+global proc renameWin(){
+
+if (`window -exists renameWindow`){
+  deleteUI -window renameWindow;
+}
+
+window
+    -sizeable false
+    -title "RenameWin"
+    -iconName "RenameWin"
+    -widthHeight 320 53 renameWindow;
+    columnLayout -adjustableColumn true;
+    textField -text "NewName" newNameField;
+    button -l "Rename" -c "renameCommand" goButton;
+
+showWindow renameWindow;
+}
+
+global proc renameCommand(){
+string $sel[] = `ls -sl -tr`;
+string $renameString = `textField -query -text newNameField`;
+int $count = `size($sel)`;
+int $x;
+
+    for ($x=0; $x<$count; $x++){
+        string $newName = $renameString + $x;
+        rename $sel[$x] $newName;
+    }
+}
