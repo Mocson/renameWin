@@ -21,9 +21,11 @@ string $sel[] = `ls -sl -tr`;
 string $renameString = `textField -query -text newNameField`;
 int $count = `size($sel)`;
 int $x;
+int $renameNum;
 
     for ($x=0; $x<$count; $x++){
-        string $newName = $renameString + $x;
+        $renameNum = $x + 1;
+        string $newName = $renameString + $renameNum;
         rename $sel[$x] $newName;
     }
 }
